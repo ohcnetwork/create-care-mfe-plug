@@ -95,6 +95,14 @@ export async function initProject(projectName, port, targetDir) {
       },
     });
 
+    // npm never publishes files named `.gitignore` (it drops or renames them
+    // to `.npmignore`), so the template ships one as `_gitignore` and we
+    // rename it back to `.gitignore` in the generated project.
+    const gitignoreSrc = path.join(targetDir, "_gitignore");
+    if (await fs.pathExists(gitignoreSrc)) {
+      await fs.move(gitignoreSrc, path.join(targetDir, ".gitignore"));
+    }
+
     // Define replacements
     const replacements = {
       "{{PROJECT_NAME}}": projectName,

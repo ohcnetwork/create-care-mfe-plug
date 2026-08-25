@@ -3,8 +3,8 @@ template/node_modules/
 template/package-lock.json
 
 # Exclude development files
-.git/
-.gitignore
+/.git/
+/.gitignore
 *.log
 .DS_Store
 
